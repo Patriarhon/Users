@@ -1,0 +1,49 @@
+//
+//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+class {{ prefix }}{{ module_info.name }}Header: NSObject {
+
+    var controller: {{ prefix }}{{ module_info.name }}ViewController!
+    var presenter: {{ prefix }}{{ module_info.name }}Presenter!
+    var interactor: {{ prefix }}{{ module_info.name }}Interactor!
+    
+    init(root: {{ prefix }}{{ module_info.name }}Delegate) {
+        super.init()
+        
+        controller = moduleController()
+        presenter = {{ prefix }}{{ module_info.name }}Presenter()
+        interactor = {{ prefix }}{{ module_info.name }}Interactor()
+        
+        presenter.root = root
+        presenter.controller = controller
+        presenter.interactor = interactor
+        
+        controller.presenter = presenter
+        interactor.presenter = presenter
+    }
+    
+    func currentController() -> UIViewController {
+        return controller
+    }
+
+    //MARK: - private
+    
+    private func moduleController() -> {{ prefix }}{{ module_info.name }}ViewController {
+        return moduleStoryboard().instantiateViewController(withIdentifier: "{{ prefix }}{{ module_info.name }}ViewController") as! {{ prefix }}{{ module_info.name }}ViewController
+    }
+    
+    private func moduleStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "{{ prefix }}{{ module_info.name }}", bundle: nil)
+    }
+}
+
+extension {{ prefix }}{{ module_info.name }}Header: {{ prefix }}{{ module_info.name }}Interface {
+
+}
